@@ -1,15 +1,14 @@
-
 package vistas;
 
 import control.AlumnoData;
 import control.InscripcionData;
 import control.MateriaData;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Alumno;
 import modelo.Materia;
 import modelo.Nota;
-
 
 public class ListaMaterias extends javax.swing.JInternalFrame {
 
@@ -18,8 +17,7 @@ public class ListaMaterias extends javax.swing.JInternalFrame {
     InscripcionData inscripcionData;
     ArrayList<Alumno> listaAlumnos = new ArrayList<>();
     ArrayList<Materia> listaMaterias = new ArrayList<>();
-    
-    
+
     public ListaMaterias(AlumnoData alumnoData, MateriaData materiaData, InscripcionData inscripcionData) {
         initComponents();
         limpiarCampos();
@@ -30,13 +28,14 @@ public class ListaMaterias extends javax.swing.JInternalFrame {
         llenarListaAlumnos(true);
     }
 
-    public void limpiarCampos(){
-    DefaultTableModel model = (DefaultTableModel) tblMaterias.getModel();
+    public void limpiarCampos() {
+        DefaultTableModel model = (DefaultTableModel) tblMaterias.getModel();
         model.setRowCount(0);
         txtAlumnos.setText("");
     }
-    public void llenarListaAlumnos(Boolean activo){
-    if (txtAlumnos.getText() != "") {
+
+    public void llenarListaAlumnos(Boolean activo) {
+        if (txtAlumnos.getText() != "") {
             listaAlumnos = (ArrayList) alumnoData.obtenerAlumnos(txtAlumnos.getText());
         } else {
             listaAlumnos = (ArrayList) alumnoData.obtenerAlumnos();
@@ -68,8 +67,7 @@ public class ListaMaterias extends javax.swing.JInternalFrame {
             }
         });
     }
-    
-   
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -211,39 +209,41 @@ public class ListaMaterias extends javax.swing.JInternalFrame {
 
     private void llenarCampos(Alumno alumno) {
         txtAlumnos.setText(String.valueOf(alumno.toString()));
-            alumno = lstAlumnos.getSelectedValue();
-            llenarTablaMaterias(alumno);
+        alumno = lstAlumnos.getSelectedValue();
+        llenarTablaMaterias(alumno);
     }
-    
-    
-    private void llenarTablaMaterias(Alumno alumno){
+
+    private void llenarTablaMaterias(Alumno alumno) {
         DefaultTableModel model = (DefaultTableModel) tblMaterias.getModel();
         model.setRowCount(0);
 
-       ArrayList<Nota> listaNotas = inscripcionData.buscarNotas(alumno);
-        
-        for(Nota nota:listaNotas){
-           // DefaultTableModel model = (DefaultTableModel) tblNotas.getModel();
-            model.addRow(new Object[]{nota,nota.getNota()});
+        ArrayList<Nota> listaNotas = inscripcionData.buscarNotas(alumno);
+
+        for (Nota nota : listaNotas) {
+            // DefaultTableModel model = (DefaultTableModel) tblNotas.getModel();
+            model.addRow(new Object[]{nota, nota.getNota()});
         }
     }
-    
+
     private void lstAlumnosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstAlumnosValueChanged
-        if (!lstAlumnos.isSelectionEmpty()) {
-            txtAlumnos.setText(lstAlumnos.getSelectedValue().toString());
-            llenarCampos(lstAlumnos.getSelectedValue());
-         
-    }
+
+        try {
+            if (!lstAlumnos.isSelectionEmpty()) {
+                txtAlumnos.setText(lstAlumnos.getSelectedValue().toString());
+                llenarCampos(lstAlumnos.getSelectedValue());
+            }
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un item de la lista.");
+        }
     }//GEN-LAST:event_lstAlumnosValueChanged
 
     private void txtAlumnosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAlumnosKeyReleased
         llenarListaAlumnos(true);
     }//GEN-LAST:event_txtAlumnosKeyReleased
 
-    
-    
+
     private void tblMateriasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tblMateriasKeyReleased
-  
+
     }//GEN-LAST:event_tblMateriasKeyReleased
 
 

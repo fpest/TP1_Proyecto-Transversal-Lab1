@@ -8,6 +8,7 @@ package vistas;
 import control.AlumnoData;
 import control.InscripcionData;
 import control.MateriaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -72,7 +73,7 @@ public class RegistroNotas extends javax.swing.JInternalFrame {
         lstAlumnos.removeAll();
 
         int largoLista = listaAlumnos.size();
-        //    String[] apellidoNombre = new String[largoLista];
+                //    String[] apellidoNombre = new String[largoLista];
         Alumno[] apellidoNombre = new Alumno[largoLista];
         int i = 0;
 
@@ -317,14 +318,19 @@ public class RegistroNotas extends javax.swing.JInternalFrame {
 
 
     private void lstAlumnosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstAlumnosValueChanged
-        if (!lstAlumnos.isSelectionEmpty()) {
+        
+            try{
+            if (!lstAlumnos.isSelectionEmpty()) {
             alumnoSeleccionado = true;
             txtAlumno.setText(lstAlumnos.getSelectedValue().toString());
             alumno = lstAlumnos.getSelectedValue();
-            llenarTablaNotas(alumno);
-
-        }
-
+             llenarTablaNotas(alumno);
+            }
+           }catch(NullPointerException ex){
+           JOptionPane.showMessageDialog(null, "Debe seleccionar un item de la lista.");
+                    }
+            
+            
 
     }//GEN-LAST:event_lstAlumnosValueChanged
 

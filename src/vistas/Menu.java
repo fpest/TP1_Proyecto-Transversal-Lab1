@@ -1,4 +1,3 @@
-
 package vistas;
 
 import control.AlumnoData;
@@ -140,9 +139,9 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ResgistroAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResgistroAlumnoActionPerformed
-       
+
         try {
-            Conexion conexion= new Conexion();
+            Conexion conexion = new Conexion();
             AlumnoData alumnoData = new AlumnoData(conexion);
             escritorio.removeAll();
             escritorio.repaint();
@@ -153,20 +152,19 @@ public class Menu extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(RegistroAlumno.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-       
+
+
     }//GEN-LAST:event_ResgistroAlumnoActionPerformed
 
     private void RegistroMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroMateriasActionPerformed
-      
-        
+
         try {
-            Conexion conexion= new Conexion();
+            Conexion conexion = new Conexion();
             MateriaData materiaData = new MateriaData(conexion);
-            
+            InscripcionData inscripcionData = new InscripcionData(conexion);
             escritorio.removeAll();
             escritorio.repaint();
-            RegistroMaterias rm = new RegistroMaterias(materiaData);
+            RegistroMaterias rm = new RegistroMaterias(materiaData, inscripcionData);
             rm.setVisible(true);
             escritorio.add(rm);
             escritorio.moveToFront(rm);
@@ -176,13 +174,13 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_RegistroMateriasActionPerformed
 
     private void RegistroInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroInscripcionesActionPerformed
-       
+
         try {
-            Conexion conexion= new Conexion();
+            Conexion conexion = new Conexion();
             AlumnoData alumnoData = new AlumnoData(conexion);
             MateriaData materiaData = new MateriaData(conexion);
             InscripcionData inscripcionData = new InscripcionData(conexion);
-            
+
             escritorio.removeAll();
             escritorio.repaint();
             RegistroInscripciones ri = new RegistroInscripciones(alumnoData, materiaData, inscripcionData);
@@ -195,13 +193,13 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_RegistroInscripcionesActionPerformed
 
     private void ListaAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaAActionPerformed
-       
+
         try {
-            Conexion conexion= new Conexion();
+            Conexion conexion = new Conexion();
             AlumnoData alumnoData = new AlumnoData(conexion);
             MateriaData materiaData = new MateriaData(conexion);
             InscripcionData inscripcionData = new InscripcionData(conexion);
-            
+
             escritorio.removeAll();
             escritorio.repaint();
             ListaAlumnos la = new ListaAlumnos(alumnoData, materiaData, inscripcionData);
@@ -214,15 +212,13 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_ListaAActionPerformed
 
     private void ListaMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListaMActionPerformed
-       
+
         try {
-            Conexion conexion= new Conexion();
+            Conexion conexion = new Conexion();
             AlumnoData alumnoData = new AlumnoData(conexion);
             MateriaData materiaData = new MateriaData(conexion);
             InscripcionData inscripcionData = new InscripcionData(conexion);
-            
-            
-            
+
             escritorio.removeAll();
             escritorio.repaint();
             ListaMaterias lm = new ListaMaterias(alumnoData, materiaData, inscripcionData);
@@ -239,14 +235,12 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_DesconectarseActionPerformed
 
     private void RegistroNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistroNotasActionPerformed
-       
+
         try {
-            Conexion conexion= new Conexion();
+            Conexion conexion = new Conexion();
             AlumnoData alumnoData = new AlumnoData(conexion);
             MateriaData materiaData = new MateriaData(conexion);
             InscripcionData inscripcionData = new InscripcionData(conexion);
-            
-            
             escritorio.removeAll();
             escritorio.repaint();
             RegistroNotas rn = new RegistroNotas(alumnoData, materiaData, inscripcionData);
@@ -259,7 +253,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_RegistroNotasActionPerformed
 
     public static void main(String args[]) {
-       
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -276,7 +270,7 @@ public class Menu extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Menu().setVisible(true);

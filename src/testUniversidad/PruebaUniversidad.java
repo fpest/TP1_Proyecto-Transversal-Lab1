@@ -1,3 +1,5 @@
+package testUniversidad;
+
 
 import control.AlumnoData;
 import control.InscripcionData;

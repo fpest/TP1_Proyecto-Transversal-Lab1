@@ -5,6 +5,7 @@ import control.InscripcionData;
 import control.MateriaData;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Alumno;
 import modelo.Materia;
@@ -15,8 +16,8 @@ public class ListaAlumnos extends javax.swing.JInternalFrame {
     AlumnoData alumnoData;
     InscripcionData inscripcionData;
     DefaultTableModel modeloTabla;
-    String data [][] = {};
-    String cabeza [] = {"Apellido","Nombre"};
+    String data[][] = {};
+    String cabeza[] = {"Apellido", "Nombre"};
     ArrayList<Materia> listaMaterias = new ArrayList<>();
     ArrayList<Alumno> listaAlumnos = new ArrayList<>();
 
@@ -29,17 +30,17 @@ public class ListaAlumnos extends javax.swing.JInternalFrame {
         listaMaterias = (ArrayList) materiaData.obtenerMateria();
         llenarListaMaterias();
         tablaAlumnos(0);
-        
+
     }
 
-    public void limpiarCampos(){
-    
+    public void limpiarCampos() {
+
         DefaultTableModel model = (DefaultTableModel) tblAlumnos.getModel();
         model.setRowCount(0);
     }
 
-    public void llenarListaMaterias(){
-         
+    public void llenarListaMaterias() {
+
         if (!"".equals(txtMateria.getText())) {
             listaMaterias = (ArrayList) materiaData.obtenerMateria(txtMateria.getText());
         } else {
@@ -71,28 +72,25 @@ public class ListaAlumnos extends javax.swing.JInternalFrame {
         });
     }
 
-    
-    public void tablaAlumnos(int idMateria){
-        listaAlumnos = alumnoData.obtenerAlumnoMaterias(idMateria);
-        modeloTabla = new DefaultTableModel(data, cabeza){
-            
+    public void tablaAlumnos(int idMateria) {
+        listaAlumnos = inscripcionData.obtenerAlumnoMaterias(idMateria);
+        modeloTabla = new DefaultTableModel(data, cabeza) {
+
             @Override
-            public boolean isCellEditable(int row, int column){
-                
+            public boolean isCellEditable(int row, int column) {
+
                 return false;
             }
         };
         tblAlumnos.setModel(modeloTabla);
-        for(Alumno a: listaAlumnos){
-            
-                Object datos [] = {a.getApellido(), a.getNombre()};
-                modeloTabla.addRow(datos);
-                
-            }
+        for (Alumno a : listaAlumnos) {
+
+            Object datos[] = {a.getApellido(), a.getNombre()};
+            modeloTabla.addRow(datos);
+
+        }
     }
-    
-    
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -213,12 +211,18 @@ public class ListaAlumnos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void lstMateriasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstMateriasValueChanged
-        if (!lstMaterias.isSelectionEmpty()) {
-           txtMateria.setText(lstMaterias.getSelectedValue().toString());
-           limpiarCampos();
-           tablaAlumnos(lstMaterias.getSelectedValue().getIdMateria());
-           
-    }
+
+        try {
+            if (!lstMaterias.isSelectionEmpty()) {
+                txtMateria.setText(lstMaterias.getSelectedValue().toString());
+                limpiarCampos();
+                tablaAlumnos(lstMaterias.getSelectedValue().getIdMateria());
+
+            }
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un item de la lista.");
+        }
+
     }//GEN-LAST:event_lstMateriasValueChanged
 
     private void txtMateriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMateriaKeyReleased

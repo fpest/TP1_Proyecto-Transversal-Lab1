@@ -41,7 +41,6 @@ public class RegistroAlumno extends javax.swing.JInternalFrame {
         txtApellido.setText("");
         txtBuscarAlu.setText("");
         chkActivo.setSelected(false);
-        rbtnActivos.setSelected(true);
         jdcFechaNacimiento.setDate(new Date());
         btnAltaAlu.setText("Alta");
         btnModificarAlu.setText("Modificación");
@@ -359,7 +358,7 @@ public class RegistroAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void rbtnInactivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnInactivosActionPerformed
-        txtBuscarAlu.setText("");
+        limpiarCampos();
         listaAlumnos = (ArrayList) alumnoData.obtenerAlumnos();
         if (rbtnActivos.isSelected()) {
             llenarListaAlumnos(true);
@@ -369,7 +368,8 @@ public class RegistroAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_rbtnInactivosActionPerformed
 
     private void rbtnActivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnActivosActionPerformed
-        txtBuscarAlu.setText("");
+        //txtBuscarAlu.setText("");
+        limpiarCampos();
         listaAlumnos = (ArrayList) alumnoData.obtenerAlumnos();
         if (rbtnActivos.isSelected()) {
             llenarListaAlumnos(true);
@@ -436,6 +436,9 @@ public class RegistroAlumno extends javax.swing.JInternalFrame {
 
 
     private void lstAlumnosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstAlumnosValueChanged
+
+
+        try{
         if (!lstAlumnos.isSelectionEmpty()) {
             txtBuscarAlu.setText(lstAlumnos.getSelectedValue().toString());
             desactivarControles();
@@ -446,6 +449,11 @@ public class RegistroAlumno extends javax.swing.JInternalFrame {
             btnModificarAlu.setText("Modificación");
             llenarCampos(lstAlumnos.getSelectedValue());
         }
+         }catch(NullPointerException ex){
+           JOptionPane.showMessageDialog(null, "Debe seleccionar un item de la lista.");
+                    }
+
+        
     }//GEN-LAST:event_lstAlumnosValueChanged
 
     private void btnBajaAluActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaAluActionPerformed

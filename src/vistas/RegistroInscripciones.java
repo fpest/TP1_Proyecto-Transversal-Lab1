@@ -293,6 +293,8 @@ public class RegistroInscripciones extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void lstAlumnosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstAlumnosValueChanged
+        
+        try{
         if (!lstAlumnos.isSelectionEmpty()) {
             alumnoSeleccionado = true;
             txtAlumno.setText(lstAlumnos.getSelectedValue().toString());
@@ -303,9 +305,16 @@ public class RegistroInscripciones extends javax.swing.JInternalFrame {
                 desactivarControles();
             }
         }
+         }catch(NullPointerException ex){
+           JOptionPane.showMessageDialog(null, "Debe seleccionar un item de la lista.");
+                    }
+
+        
     }//GEN-LAST:event_lstAlumnosValueChanged
 
     private void lstMateriasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstMateriasValueChanged
+
+        try{
         if (!lstMaterias.isSelectionEmpty()) {
             materiaSeleccionada = true;
             txtMateria.setText(lstMaterias.getSelectedValue().toString());
@@ -315,8 +324,11 @@ public class RegistroInscripciones extends javax.swing.JInternalFrame {
             } else {
                 desactivarControles();
             }
-
         }
+         }catch(NullPointerException ex){
+           JOptionPane.showMessageDialog(null, "Debe seleccionar un item de la lista.");
+                    }
+
     }//GEN-LAST:event_lstMateriasValueChanged
 
     private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribirActionPerformed
