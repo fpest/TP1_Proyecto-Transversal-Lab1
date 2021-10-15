@@ -21,7 +21,10 @@ public class PruebaUniversidad {
             AlumnoData ad = new AlumnoData(conexion);
             MateriaData md = new MateriaData(conexion);
             InscripcionData id = new InscripcionData(conexion);
-            
+           
+        ad.borrarAlumno(2);
+        md.borrarMateria(4);
+        
         /*
         Alumno a1 = new Alumno(99099, "Javier","Lopez", LocalDate.of(2000,2, 24),true);
         Alumno a2 = new Alumno(88088, "Pedro","Perez", LocalDate.of(2011,3, 24),true);

@@ -52,7 +52,7 @@ public class AlumnoData {
             //System.out.println("Error al insertar el registro" + ex);
             JOptionPane.showMessageDialog(null, "No se pudo guardar la información. No pueden haber 2 Alumnos con el mismo Numero de Legajo.");
         }
-    return guardado;
+        return guardado;
     }
 
     public boolean actualizarAlumno(Alumno alumno) {
@@ -77,14 +77,36 @@ public class AlumnoData {
         }
         return actualizado;
     }
-    
-    public void borrarAlumno(int idAlumno){
-        Alumno alumno = new Alumno();
-        alumno = buscarAlumno(idAlumno);
-        alumno.setActivo(false);
-        actualizarAlumno(alumno);
-    }
 
+    public boolean borrarAlumno(int idAlumno) {
+     boolean borrado = true;
+        String sql = "DELETE FROM `alumno` WHERE idAlumno=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idAlumno);
+            ps.executeUpdate();
+
+            ps.close();
+        } catch (SQLException ex) {
+            borrado = false;
+            System.out.println("Error al intentar borrar registro " + ex);
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar la información.");
+        }
+        return borrado;
+    }
+    
+
+    public boolean desactivarAlumno(Alumno alumno) {
+        alumno.setActivo(false);
+        return actualizarAlumno(alumno);
+    }
+ 
+    public boolean activarAlumno(Alumno alumno) {
+        alumno.setActivo(true);
+        return actualizarAlumno(alumno);
+    }
+    
     public List<Alumno> obtenerAlumnos() {
         return obtenerAlumnos("");
     }
@@ -143,9 +165,5 @@ public class AlumnoData {
         }
         return alumno;
     }
- 
-
-
-
 
 }

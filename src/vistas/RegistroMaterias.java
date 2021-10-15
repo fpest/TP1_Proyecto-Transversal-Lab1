@@ -18,11 +18,12 @@ import modelo.Materia;
  * @author juani
  */
 public class RegistroMaterias extends javax.swing.JInternalFrame {
+
     MateriaData materiaData;
     InscripcionData inscripcionData;
     Materia materia;
     ArrayList<Materia> listaMaterias = new ArrayList<>();
-    
+
     /**
      * Creates new form RegistroMaterias
      */
@@ -35,11 +36,11 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
         llenarListaMaterias(true);
         desactivarControles();
     }
-    
+
     public void llenarListaMaterias(Boolean activo) {
 
-        if (txtBuscarMat.getText() != ""){
-            listaMaterias = (ArrayList) materiaData.obtenerMateria (txtBuscarMat.getText());
+        if (txtBuscarMat.getText() != "") {
+            listaMaterias = (ArrayList) materiaData.obtenerMateria(txtBuscarMat.getText());
         } else {
             listaMaterias = (ArrayList) materiaData.obtenerMateria();
         }
@@ -58,7 +59,7 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
             }
         }
 
-        lstMaterias.setModel(new javax.swing.AbstractListModel<Materia>(){
+        lstMaterias.setModel(new javax.swing.AbstractListModel<Materia>() {
             @Override
             public int getSize() {
                 return listaMaterias.size();
@@ -70,18 +71,18 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
             }
         });
     }
-    
+
     public void limpiarCampos() {
         txtAño.setText("");
         txtNombreMateria.setText("");
         txtBuscarMat.setText("");
         chkActiva.setSelected(false);
-        
+
         btnAltaMat.setText("Alta");
         btnModificarMat.setText("Modificación");
 
     }
-    
+
     public void activarControles() {
         btnBajaMat.setEnabled(true);
         btnModificarMat.setEnabled(true);
@@ -97,6 +98,7 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
         txtNombreMateria.setEnabled(false);
         chkActiva.setEnabled(false);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -350,7 +352,7 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
                 boolean activo = chkActiva.isSelected();
                 btnAltaMat.setText("Alta");
 
-                materia = new Materia(nombre, anio,activo );
+                materia = new Materia(nombre, anio, activo);
                 materiaData.guardarMateria(materia);
 
                 limpiarCampos();
@@ -362,31 +364,26 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAltaMatActionPerformed
 
     private void btnBajaMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBajaMatActionPerformed
-    
-    
-        
-        
-        if (inscripcionData.obtenerAlumnoMaterias(lstMaterias.getSelectedValue().getIdMateria()).size() != 0){
-        JOptionPane.showMessageDialog(null, " Esta Materia No se puede desactivar porque tiene Alumnos Inscriptos.");
-        }
-        else{
-        
-        int anio = Integer.valueOf(txtAño.getText());
-        String nombre = txtNombreMateria.getText();
-        boolean activo = false;
-        int idMateria = lstMaterias.getSelectedValue().getIdMateria();
-        materia = new Materia(idMateria, nombre, anio, activo);
-        materiaData.actualizarMateria(materia);
 
-        limpiarCampos();
-        desactivarControles();
-        llenarListaMaterias(true);
-        JOptionPane.showMessageDialog(null, " Materia Dada de Baja");
+        if (inscripcionData.obtenerAlumnoMaterias(lstMaterias.getSelectedValue().getIdMateria()).size() != 0) {
+            JOptionPane.showMessageDialog(null, " Esta Materia No se puede desactivar porque tiene Alumnos Inscriptos.");
+        } else {
+            int anio = Integer.valueOf(txtAño.getText());
+            String nombre = txtNombreMateria.getText();
+            boolean activo = false;
+            int idMateria = lstMaterias.getSelectedValue().getIdMateria();
+            materia = new Materia(idMateria, nombre, anio, activo);
+            materiaData.desactivarMateria(materia);
+
+            limpiarCampos();
+            desactivarControles();
+            llenarListaMaterias(true);
+            JOptionPane.showMessageDialog(null, " Materia Dada de Baja");
         }
     }//GEN-LAST:event_btnBajaMatActionPerformed
 
     private void btnBuscarMatKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnBuscarMatKeyReleased
-        
+
     }//GEN-LAST:event_btnBuscarMatKeyReleased
 
     private void llenarCampos(Materia materia) {
@@ -394,45 +391,42 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
         txtNombreMateria.setText(materia.getNombre());
         chkActiva.setSelected(materia.isActivo());
     }
-    
-    private void lstMateriasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstMateriasValueChanged
-        
-        try{
-        if (!lstMaterias.isSelectionEmpty()) {
-            txtBuscarMat.setText(lstMaterias.getSelectedValue().toString());
-            btnBajaMat.setEnabled(true);
-            btnModificarMat.setEnabled(true);
-            btnAltaMat.setEnabled(false);
-            llenarCampos(lstMaterias.getSelectedValue());
-        }
-         }catch(NullPointerException ex){
-           JOptionPane.showMessageDialog(null, "Debe seleccionar un item de la lista.");
-                    }
 
-        
-        
-        
+    private void lstMateriasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstMateriasValueChanged
+
+        try {
+            if (!lstMaterias.isSelectionEmpty()) {
+                txtBuscarMat.setText(lstMaterias.getSelectedValue().toString());
+                btnBajaMat.setEnabled(true);
+                btnModificarMat.setEnabled(true);
+                btnAltaMat.setEnabled(false);
+                llenarCampos(lstMaterias.getSelectedValue());
+            }
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un item de la lista.");
+        }
+
+
     }//GEN-LAST:event_lstMateriasValueChanged
 
     private void txtBuscarMatKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarMatKeyReleased
-       if (txtBuscarMat.getText().isEmpty()){
-        desactivarControles();
-        btnAltaMat.setEnabled(true);
-        
-        
+        if (txtBuscarMat.getText().isEmpty()) {
+            desactivarControles();
+            btnAltaMat.setEnabled(true);
+
         }
-        
+
         llenarListaMaterias(rbtnActivas.isSelected());
     }//GEN-LAST:event_txtBuscarMatKeyReleased
 
     private void btnModificarMatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarMatActionPerformed
- 
-        
-        
+
         if (btnModificarMat.getText() == "Modificación") {
             activarControles();
-     
-            if (rbtnActivas.isSelected()){chkActiva.setEnabled(false);};
+
+            if (rbtnActivas.isSelected()) {
+                chkActiva.setEnabled(false);
+            };
             btnModificarMat.setText("Guardar Cambios");
         } else {
             if (validarCampos()) {
@@ -455,7 +449,6 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
                 }
             }
         }
-
 
 
     }//GEN-LAST:event_btnModificarMatActionPerformed

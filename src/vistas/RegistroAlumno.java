@@ -465,7 +465,7 @@ public class RegistroAlumno extends javax.swing.JInternalFrame {
         Date fechaNac = jdcFechaNacimiento.getDate();
         boolean activo = false;
         alumno = new Alumno(idAlumno, legajo, nombre, apellido, convertToLocalDate(fechaNac), activo);
-        alumnoData.actualizarAlumno(alumno);
+        alumnoData.desactivarAlumno(alumno);
 
         limpiarCampos();
         desactivarControles();

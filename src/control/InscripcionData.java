@@ -183,13 +183,12 @@ public class InscripcionData {
         return notas;
     }
 
-       public ArrayList<Alumno> obtenerAlumnoMaterias(int idMateria) {
+    public ArrayList<Alumno> obtenerAlumnoMaterias(int idMateria) {
         ArrayList<Alumno> alumnos = new ArrayList<>();
         Alumno alumno = null;
 
         String sql = "SELECT al.idAlumno, al.legajo, al.nombre, al.apellido, al.fechaNac, al.activo, nota from alumno al, inscripcion ins where al.idAlumno = ins.idAlumno and ins.idMateria = ? and ins.activo=1;";
-        
-        
+
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idMateria);
@@ -203,7 +202,6 @@ public class InscripcionData {
                 alumno.setApellido(rs.getString("apellido"));
                 alumno.setFechaNac(rs.getDate("fechaNac").toLocalDate());  //date a LocalDate
                 alumno.setActivo(rs.getBoolean("activo"));
-                
 
                 alumnos.add(alumno); //Agrega cada alumno a la lista
             }
@@ -215,5 +213,4 @@ public class InscripcionData {
         return alumnos;  //devuelve un ArrayList
     }
 
-    
 }
