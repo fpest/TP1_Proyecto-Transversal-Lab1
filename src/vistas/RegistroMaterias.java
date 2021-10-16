@@ -73,6 +73,9 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
     }
 
     public void limpiarCampos() {
+        rbtnActivas.setEnabled(true);
+        rbtnInactivas.setEnabled(true);
+
         txtAño.setText("");
         txtNombreMateria.setText("");
         txtBuscarMat.setText("");
@@ -126,6 +129,7 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
         rbtnActivas = new javax.swing.JRadioButton();
         rbtnInactivas = new javax.swing.JRadioButton();
         btnSalir = new javax.swing.JButton();
+        btnLimpiarCampos = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Alta de materias");
@@ -179,6 +183,8 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("Nombre");
 
+        txtNombreMateria.setNextFocusableComponent(txtAño);
+
         jLabel2.setFont(new java.awt.Font("Myanmar Text", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("ALTA DE MATERIAS");
@@ -209,6 +215,13 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
             }
         });
 
+        btnLimpiarCampos.setText("Limpiar Campos");
+        btnLimpiarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarCamposActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelAltaMateriasLayout = new javax.swing.GroupLayout(panelAltaMaterias);
         panelAltaMaterias.setLayout(panelAltaMateriasLayout);
         panelAltaMateriasLayout.setHorizontalGroup(
@@ -226,6 +239,8 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
                         .addComponent(btnBajaMat)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnModificarMat)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnLimpiarCampos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalir))
                     .addGroup(panelAltaMateriasLayout.createSequentialGroup()
@@ -288,7 +303,8 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
                     .addComponent(btnModificarMat)
                     .addComponent(btnBajaMat)
                     .addComponent(btnAltaMat)
-                    .addComponent(btnSalir))
+                    .addComponent(btnSalir)
+                    .addComponent(btnLimpiarCampos))
                 .addGap(52, 52, 52))
         );
 
@@ -302,7 +318,7 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelAltaMaterias, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+            .addComponent(panelAltaMaterias, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
         );
 
         pack();
@@ -345,6 +361,7 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
             btnModificarMat.setEnabled(false);
             chkActiva.setSelected(true);
             btnAltaMat.setText("Guardar");
+            txtNombreMateria.requestFocus();
         } else {
             if (validarCampos()) {
                 int anio = Integer.valueOf(txtAño.getText());
@@ -423,6 +440,8 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
 
         if (btnModificarMat.getText() == "Modificación") {
             activarControles();
+            rbtnActivas.setEnabled(false);
+            rbtnInactivas.setEnabled(false);
 
             if (rbtnActivas.isSelected()) {
                 chkActiva.setEnabled(false);
@@ -453,6 +472,13 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnModificarMatActionPerformed
 
+    private void btnLimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCamposActionPerformed
+        limpiarCampos();
+        desactivarControles();
+        btnAltaMat.setEnabled(true);
+
+    }//GEN-LAST:event_btnLimpiarCamposActionPerformed
+
     private boolean validarCampos() {
         boolean validado = true;
         try {
@@ -475,6 +501,7 @@ public class RegistroMaterias extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup bgMaterias;
     private javax.swing.JButton btnAltaMat;
     private javax.swing.JButton btnBajaMat;
+    private javax.swing.JButton btnLimpiarCampos;
     private javax.swing.JButton btnModificarMat;
     private javax.swing.JButton btnSalir;
     private javax.swing.JCheckBox chkActiva;

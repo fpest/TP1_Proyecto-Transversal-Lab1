@@ -212,5 +212,23 @@ public class InscripcionData {
         }
         return alumnos;  //devuelve un ArrayList
     }
+    
+    public boolean borrarInscripcion(int idInscripcion){
+    boolean borrado = true;
+        String sql = "DELETE FROM `inscripcion` WHERE idInscripcion=?";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idInscripcion);
+            ps.executeUpdate();
+
+            ps.close();
+        } catch (SQLException ex) {
+            borrado = false;
+            System.out.println("Error al intentar borrar registro " + ex);
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar la información.");
+        }
+        return borrado;
+    }
 
 }

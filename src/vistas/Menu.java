@@ -92,7 +92,7 @@ public class Menu extends javax.swing.JFrame {
 
         Informes.setText("Informes");
 
-        ListaA.setText("Lista de alumnos");
+        ListaA.setText("Lista de alumnos por materia");
         ListaA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ListaAActionPerformed(evt);
@@ -100,7 +100,7 @@ public class Menu extends javax.swing.JFrame {
         });
         Informes.add(ListaA);
 
-        ListaM.setText("Lista de materias");
+        ListaM.setText("Lista de materias por alumno");
         ListaM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ListaMActionPerformed(evt);

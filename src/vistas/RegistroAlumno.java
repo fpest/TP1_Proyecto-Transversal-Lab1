@@ -36,6 +36,8 @@ public class RegistroAlumno extends javax.swing.JInternalFrame {
     }
 
     public void limpiarCampos() {
+        rbtnActivos.setEnabled(true);
+        rbtnInactivos.setEnabled(true);
         txtLegajo.setText("");
         txtNombre.setText("");
         txtApellido.setText("");
@@ -132,6 +134,7 @@ public class RegistroAlumno extends javax.swing.JInternalFrame {
         rbtnActivos = new javax.swing.JRadioButton();
         rbtnInactivos = new javax.swing.JRadioButton();
         btnSalir = new javax.swing.JButton();
+        btnLimpiarCampos = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Alta / Bajas / Modificaciones de Alumnos");
@@ -238,6 +241,13 @@ public class RegistroAlumno extends javax.swing.JInternalFrame {
             }
         });
 
+        btnLimpiarCampos.setText("Limpiar Campos");
+        btnLimpiarCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarCamposActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelAltaAlumnoLayout = new javax.swing.GroupLayout(panelAltaAlumno);
         panelAltaAlumno.setLayout(panelAltaAlumnoLayout);
         panelAltaAlumnoLayout.setHorizontalGroup(
@@ -278,9 +288,12 @@ public class RegistroAlumno extends javax.swing.JInternalFrame {
                                         .addComponent(btnBajaAlu, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnModificarAlu, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(10, 10, 10)
                                 .addGroup(panelAltaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnSalir)
+                                    .addGroup(panelAltaAlumnoLayout.createSequentialGroup()
+                                        .addComponent(btnLimpiarCampos)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnSalir))
                                     .addGroup(panelAltaAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(txtBuscarAlu)
                                         .addComponent(jLabel6)
@@ -331,7 +344,8 @@ public class RegistroAlumno extends javax.swing.JInternalFrame {
                     .addComponent(btnModificarAlu)
                     .addComponent(btnBajaAlu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAltaAlu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSalir))
+                    .addComponent(btnSalir)
+                    .addComponent(btnLimpiarCampos))
                 .addGap(30, 30, 30))
         );
 
@@ -478,6 +492,9 @@ public class RegistroAlumno extends javax.swing.JInternalFrame {
     private void btnModificarAluActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarAluActionPerformed
         if (btnModificarAlu.getText() == "Modificación") {
             activarControles();
+            rbtnActivos.setEnabled(false);
+            rbtnInactivos.setEnabled(false);
+        
             btnModificarAlu.setText("Guardar Cambios");
         } else {
             if (validarCampos()) {
@@ -503,6 +520,14 @@ public class RegistroAlumno extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_btnModificarAluActionPerformed
+
+    private void btnLimpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarCamposActionPerformed
+
+        limpiarCampos();
+        desactivarControles();
+        btnAltaAlu.setEnabled(true);
+
+    }//GEN-LAST:event_btnLimpiarCamposActionPerformed
 
     public LocalDate convertToLocalDate(Date dateToConvert) {
         return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
@@ -535,6 +560,7 @@ public class RegistroAlumno extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAltaAlu;
     private javax.swing.JButton btnBajaAlu;
+    private javax.swing.JButton btnLimpiarCampos;
     private javax.swing.JButton btnModificarAlu;
     private javax.swing.JButton btnSalir;
     private javax.swing.ButtonGroup btngAlumnos;
